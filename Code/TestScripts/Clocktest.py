@@ -1,0 +1,96 @@
+# Simple test for NeoPixels on Raspberry Pi
+import time
+import board
+import neopixel
+ 
+ 
+# Choose an open pin connected to the Data In of the NeoPixel strip, i.e. board.D18
+# NeoPixels must be connected to D10, D12, D18 or D21 to work.
+pixel_pin = board.D18
+ 
+# The number of NeoPixels
+num_pixels = 224
+ 
+# The order of the pixel colors - RGB or GRB. Some NeoPixels have red and green reversed!
+# For RGBW NeoPixels, simply change the ORDER to RGBW or GRBW.
+ORDER = neopixel.GRB
+ 
+pixels = neopixel.NeoPixel(
+    pixel_pin, num_pixels, brightness=0.2, auto_write=False, pixel_order=ORDER
+)
+ 
+ 
+def wheel(pos):
+    # Input a value 0 to 255 to get a color value.
+    # The colours are a transition r - g - b - back to r.
+    if pos < 0 or pos > 255:
+        r = g = b = 0
+    elif pos < 85:
+        r = int(pos * 3)
+        g = int(255 - pos * 3)
+        b = 0
+    elif pos < 170:
+        pos -= 85
+        r = int(255 - pos * 3)
+        g = 0
+        b = int(pos * 3)
+    else:
+        pos -= 170
+        r = 0
+        g = int(pos * 3)
+        b = int(255 - pos * 3)
+    return (r, g, b) if ORDER in (neopixel.RGB, neopixel.GRB) else (r, g, b, 0)
+ 
+ 
+def rainbow_cycle(wait):
+    for j in range(255):
+        for i in range(num_pixels):
+            pixel_index = (i * 256 // num_pixels) + j
+            pixels[i] = wheel(pixel_index & 255)
+        pixels.show()
+        time.sleep(wait)
+time1 = list(range(0, 4)) + list(range(6, 12)) + list(range(14, 28)) + list(range(176, 186))
+# time1 = [1, 2, 3, 4, 7, 8, 9, 10, 11, 12, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 177, 178, 179, 180, 182, 182, 183, 184, 185, 186]
+time2 = list(range(0, 4)) + list(range(6, 12)) + list(range(44, 66)) + list(range(186, 198))
+time3 = list(range(28, 36)) + list(range(74, 78)) + list(range(118, 124)) + list(range(160, 168))
+
+try: 
+    while True:
+        # Comment this line out if you have RGBW/GRBW NeoPixels
+        # pixels.fill((255, 0, 0))
+        # Uncomment this line if you have RGBW/GRBW NeoPixels
+        # pixels.fill((255, 0, 0, 0))
+        pixels.fill((0, 0 ,0))
+        for i in time1:
+            pixels[i] = (0, 78, 240)
+        pixels.show()
+        time.sleep(2)
+
+        # Comment this line out if you have RGBW/GRBW NeoPixels
+        # pixels.fill((0, 255, 0))
+        # Uncomment this line if you have RGBW/GRBW NeoPixels
+        # pixels.fill((0, 255, 0, 0))
+        pixels.fill((0, 0, 0))
+        for i in time2:
+            pixels[i] = (170, 235, 10)
+        pixels.show()
+        time.sleep(2)
+        # pixels.show()
+        # time.sleep(1)
+ 
+        # Comment this line out if you have RGBW/GRBW NeoPixels
+        pixels.fill((0, 0, 255))
+        # Uncomment this line if you have RGBW/GRBW NeoPixels
+        # pixels.fill((0, 0, 255, 0))
+        pixels.fill((0, 0, 0))
+        for i in time3:
+            pixels[i] = (255, 255, 255)
+        pixels.show()
+        time.sleep(2)
+ 
+        # rainbow_cycle(0.001)  # rainbow cycle with 1ms delay per step
+
+except (KeyboardInterrupt, SystemExit):
+    print("Program interrupted!")
+    pixels.fill((0, 0, 0))
+    pixels.show()
