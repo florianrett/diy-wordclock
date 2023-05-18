@@ -1,6 +1,8 @@
 from graphics import GraphWin, Text, Point, Circle, color_rgb
 import time
 import keyboard
+import threading
+from threading import Event
 import config
 
 class controller:
@@ -19,6 +21,9 @@ class controller:
     lastLightlevelChange = 0
 
     LEDs = {}
+
+    TestThread = None # testing for how to use threaded sensor polling
+    StopEvent = Event()
 
     def __OnKey1(self, arg):
         if self.OnButton1 != None:
@@ -84,8 +89,27 @@ class controller:
         keyboard.on_release_key("4", self.__OnKey4)
         keyboard.on_press_key("L", self.__OnKeyL)
 
+        self.TestThread = threading.Thread(target=self.ThreadTest)
+        self.TestThread.start()
+
     def __del__(self):
+        self.StopEvent.set()
+        self.TestThread.join()
         self.win.close()
+
+    def Cleanup(self):
+        self.StopEvent.set()
+        self.TestThread.join()
+        self.win.getMouse()
+
+    def ThreadTest(self):
+        while True:
+            print("Thread running....")
+            time.sleep(1)
+            if self.StopEvent.is_set():
+                print("Thread stopped")
+                break
+        pass
 
     def BindCallbacks(self, callback1, callback2, callback3, callback4, callback4_rel, callbackLightlevel):
         self.OnButton1 = callback1

@@ -187,8 +187,6 @@ while bProgramActive:
 
 InputInterrupt.clear()
 
-# stop when clicking with mouse inside the window
-if sys.platform.startswith("win"):
-    LEDcontroller.win.getMouse()
-
+# use custom stop event instead of destructor for reliable cleanup
+LEDcontroller.Cleanup()
 del LEDcontroller

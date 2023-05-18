@@ -11,4 +11,5 @@ PinButton1 = 4
 PinButton2 = 17
 PinButton3 = 3
 PinButton4 = 2
-PinLightSensor = 24
+
+VisibleLightThreshold = 2000000
