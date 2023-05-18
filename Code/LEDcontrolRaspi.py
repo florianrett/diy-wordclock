@@ -23,14 +23,14 @@ class controller:
 
     pixels = None
     lightsensor = None
-    
+
     OnButton1 = None
     OnButton2 = None
     OnButton3 = None
     OnButton4 = None
     OnButton4_released = None
     OnLightlevelChanged = None
-    
+
     # use threaded polling for light sensor
     LightSensorPollingThread = None
     PollingThreadInterrupt  = Event()
@@ -72,7 +72,7 @@ class controller:
         GPIO.setup(config.PinButton3, GPIO.IN, pull_up_down=GPIO.PUD_UP) # Button 3
         GPIO.setup(config.PinButton1, GPIO.IN, pull_up_down=GPIO.PUD_UP) # Button 1
         GPIO.setup(config.PinButton2, GPIO.IN, pull_up_down=GPIO.PUD_UP) # Button 2
-        
+
         GPIO.add_event_detect(config.PinButton1, GPIO.FALLING, callback=self.OnEdgeDetected1)
         GPIO.add_event_detect(config.PinButton2, GPIO.FALLING, callback=self.OnEdgeDetected2)
         GPIO.add_event_detect(config.PinButton3, GPIO.FALLING, callback=self.OnEdgeDetected3)
@@ -105,7 +105,7 @@ class controller:
         self.OnButton4_released = callback4_rel
         self.OnLightlevelChanged = callbackLightlevel
         pass
-            
+
     def PollLightSensor(self):
         while not self.PollingThreadInterrupt.is_set():
             time.sleep(1)
