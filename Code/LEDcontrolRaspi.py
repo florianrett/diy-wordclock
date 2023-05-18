@@ -108,9 +108,9 @@ class controller:
 
     def PollLightSensor(self):
         while not self.PollingThreadInterrupt.is_set():
-            time.sleep(1)
+            time.sleep(config.LightSensorPollingInterval)
             bIsBright = self.lightsensor.visible >= config.VisibleLightThreshold
-            print("Polled visible light level {0}".format(self.lightsensor.visible))
+            # print("Polled visible light level {0}".format(self.lightsensor.visible))
             if bIsBright != self.bCachedIsBright:
                 self.bCachedIsBright = bIsBright
 

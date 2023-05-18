@@ -12,4 +12,5 @@ PinButton2 = 27
 PinButton3 = 23
 PinButton4 = 24
 
+LightSensorPollingInterval = 0.1
 VisibleLightThreshold = 500000
