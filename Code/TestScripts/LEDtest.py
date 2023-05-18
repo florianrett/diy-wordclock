@@ -9,7 +9,7 @@ import neopixel
 pixel_pin = board.D21
  
 # The number of NeoPixels
-num_pixels = 224
+num_pixels = 228
  
 # The order of the pixel colors - RGB or GRB. Some NeoPixels have red and green reversed!
 # For RGBW NeoPixels, simply change the ORDER to RGBW or GRBW.
