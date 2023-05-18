@@ -7,9 +7,9 @@ BrightnessNight = 0.1
 ColorSeconds = (0, 200, 0)
 TestColor = (230, 60, 25)
 
-PinButton1 = 4
-PinButton2 = 17
-PinButton3 = 3
-PinButton4 = 2
+PinButton1 = 22
+PinButton2 = 27
+PinButton3 = 23
+PinButton4 = 24
 
 VisibleLightThreshold = 2000000
