@@ -1,5 +1,4 @@
 import sys
-import os
 import time
 from threading import Event
 
@@ -10,8 +9,7 @@ else:
 import HelperFunctionLibrary as FuncLib
 import config
 
-bUnattended = "unattended" in sys.argv
-print("Platform:", sys.platform, "Unattended: ", bUnattended)
+print("Platform:", sys.platform)
 
 LEDcontroller = LEDcontrol.controller()
 
@@ -191,6 +189,3 @@ InputInterrupt.clear()
 # use custom stop event instead of destructor for reliable cleanup
 LEDcontroller.Cleanup()
 del LEDcontroller
-
-if bUnattended:
-    os.system("shutdown now")
