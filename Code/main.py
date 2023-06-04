@@ -1,4 +1,5 @@
 import sys
+import os
 import time
 from threading import Event
 
@@ -9,7 +10,8 @@ else:
 import HelperFunctionLibrary as FuncLib
 import config
 
-print("Platform:", sys.platform)
+bUnattended = "unattended" in sys.argv
+print("Platform:", sys.platform, "Unattended: ", bUnattended)
 
 LEDcontroller = LEDcontrol.controller()
 
@@ -83,9 +85,8 @@ def DisplayLogoAnimation():
     LogoInterrupt.clear()
 
 def DisplayTime():
-    print("Displaying time")
-
     currentTime = time.localtime()
+    print("Displaying time", time.strftime("%H:%M:%S", currentTime))
 
     if currentTime.tm_hour >= 11:
         c = GetColorWithBrightness(config.ColorPM)
@@ -190,3 +191,6 @@ InputInterrupt.clear()
 # use custom stop event instead of destructor for reliable cleanup
 LEDcontroller.Cleanup()
 del LEDcontroller
+
+if bUnattended:
+    os.system("shutdown now")
