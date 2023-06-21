@@ -1,0 +1,12 @@
+
+[Unit]
+Description=Service for running the WordClock program
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/home/pi/WordClock/start.sh
+Restart=no
+
+[Install]
+WantedBy=multi-user.target
