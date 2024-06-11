@@ -5,6 +5,7 @@ After=multi-user.target
 
 [Service]
 Type=idle
+User=pi
 ExecStart=/home/pi/WordClock/start.sh
 Restart=on-failure
 RuntimeMaxSec=30d
