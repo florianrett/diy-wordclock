@@ -6,7 +6,8 @@ After=multi-user.target
 [Service]
 Type=idle
 ExecStart=/home/pi/WordClock/start.sh
-Restart=no
+Restart=on-failure
+RuntimeMaxSec=30d
 
 [Install]
 WantedBy=multi-user.target
