@@ -6,6 +6,11 @@ datetime=$(date '+%Y_%m_%d__%H:%M:%S');
 cd $(dirname -- "$0";)
 
 python main.py > logs/log_${datetime}.txt
-echo "Program stopped"
+RETURN=$?
 
-shutdown now
+echo "Program stopped with code" $RETURN
+
+if [ $RETURN -eq 0 ];
+then
+        shutdown now
+fi
