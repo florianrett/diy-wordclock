@@ -14,3 +14,5 @@ if [ $RETURN -eq 0 ];
 then
         shutdown now
 fi
+
+return $RETURN
